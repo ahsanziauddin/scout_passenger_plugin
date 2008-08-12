@@ -7,7 +7,6 @@ class PassengerStatus < Scout::Plugin
 
     out = `#{cmd} 2>&1`
     if $?.success?
-      puts "running with #{aroot}, #{aname}"
       parse_data(out, aroot, aname)
     else
       error("Could not get data from command", "Error: #{data}")
@@ -18,8 +17,8 @@ class PassengerStatus < Scout::Plugin
     apps = {}
 
     data.to_a.each { |line|
-      #	PID    PPID   Threads  VMSize    Private  Name
-      #	18419  1      1        131.8 MB  0.1 MB   /usr/sbin/apache2 -k start
+      # PID    PPID   Threads  VMSize    Private  Name
+      # 18419  1      1        131.8 MB  0.1 MB   /usr/sbin/apache2 -k start
       # 11252  18419  1        226.5 MB  1.5 MB   /usr/sbin/apache2 -k start
       # 
       # apache line: (vmsize, rss and name) are (m[4], m[5], m[6])
@@ -27,8 +26,8 @@ class PassengerStatus < Scout::Plugin
         m = Regexp.last_match
 
         apps['apache'] = { 'processes' => 0, 
-                       'total_dirty_rss' => 0.0,
-	               'total_vm_size' => 0.0 } unless apps['apache']
+                           'total_dirty_rss' => 0.0,
+                           'total_vm_size' => 0.0 } unless apps['apache']
 
         apps['apache']['processes'] += 1
         apps['apache']['total_dirty_rss'] += m[5].to_f
