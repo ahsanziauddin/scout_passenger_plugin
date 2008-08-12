@@ -1,6 +1,6 @@
 class PassengerStatus < Scout::Plugin
   def build_report
-    cmd = option(:passenger_memory_stats_command) || "passenger-memory-stats | grep \"FrameworkS\\|ApplicationS\\|Rails:\" | awk '{print $5,$6,$7,$8,$9}'"
+    cmd = "passenger-memory-stats | grep \"FrameworkS\\|ApplicationS\\|Rails:\" | awk '{print $5,$6,$7,$8,$9}'"
     app_root = option(:application_root) || "/var/www/rails/"
 
     out = `#{cmd} 2>&1`

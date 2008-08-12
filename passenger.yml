@@ -1,0 +1,5 @@
+options:
+  application_root:
+    name: The Rails application root
+    notes: The full path to where Rails apps are located
+    default: /var/www/rails/
