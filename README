@@ -1,0 +1,4 @@
+A plugin for http://scoutapp.com
+
+This helps with monitoring RSS size on a per Rails application basis, for those running Phusion Passenger.
+
