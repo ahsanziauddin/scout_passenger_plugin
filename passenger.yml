@@ -1,5 +1,15 @@
 options:
+  passenger_command:
+    name: The Passenger Memory Stats Command
+    notes: The full path to the passenger-memory-stats command.
+    default: /usr/bin/passenger-memory-stats
+
   application_root:
     name: The Rails application root
     notes: The full path to where Rails apps are located
     default: /var/www/rails/
+
+  application_name:
+    name: The name of the application for which stats are desired.
+    notes: Can be the name of a Rails app, 'apache', or nothing.
+    default: (nothing, ie. stats for all apps will be returned)
