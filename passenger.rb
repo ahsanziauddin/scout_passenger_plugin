@@ -60,11 +60,11 @@ class PassengerStatus < Scout::Plugin
       end
     }
 
+    rep = {}
     apps.each_pair { |appname,info| 
-      info.each_pair { |stat,value| 
-        report("#{appname}_#{stat}" => value) 
-      }
+      info.each_pair { |stat,value| rep["#{appname}_#{stat}"] = value } 
     }
+    report(rep)
   end
 end
 
