@@ -3,17 +3,16 @@ class PassengerStatus < Scout::Plugin
   def build_report
     cmd = option(:passenger_command) || "passenger-memory-stats 2> /dev/null"
     aroot = option(:application_root) || "/var/www/rails/"
-    aname = option(:application_name) 
 
     out = `#{cmd} 2>&1`
     if $?.success?
-      parse_data(out, aroot, aname)
+      parse_data(out, aroot)
     else
       error("Could not get data from command", "Error: #{data}")
     end
   end
 
-  def parse_data(data, app_root, app_name)
+  def parse_data(data, app_root)
     apps = {}
 
     data.to_a.each { |line|
@@ -61,12 +60,11 @@ class PassengerStatus < Scout::Plugin
       end
     }
 
-    if app_name and apps[app_name]
-      report(apps[app_name])
-    else
-      report(apps)
-    end
-
+    apps.each_pair { |appname,info| 
+      info.each_pair { |stat,value| 
+        report("#{appname}_#{stat}" => value) 
+      }
+    }
   end
 end
 
