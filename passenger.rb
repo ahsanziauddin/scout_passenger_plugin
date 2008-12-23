@@ -43,7 +43,7 @@ class PassengerStatus < Scout::Plugin
         m1 = Regexp.last_match
 
         # only passenger name so (appname, type and subtype) are (m2[3], m2[1], m2[2]) 
-        if m1[5].to_s =~ %r|(\w+(\s\w+)?):.#{app_root}(\w+)/\w+|
+        if m1[5].to_s =~ %r|(\w+(\s\w+)?):.#{app_root}([\-\w]+)/\w+|
           m2 = Regexp.last_match
 
           apps[m2[3]] = { 'instances' => 0, 
